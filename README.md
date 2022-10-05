@@ -4,7 +4,7 @@
 
 | Milestone | Planned time | Actual time |
 | --- | --- | --- |
-| Create the Monster Class and instances with attributs | 1h | - |
+| Create the Monster Class and instances with attributs | 1h | 25min |
 | Create the Methods | 3h | - |
 | Create the Menu | 2h30 | - |
 | Create the Battle Class | 3h | - |

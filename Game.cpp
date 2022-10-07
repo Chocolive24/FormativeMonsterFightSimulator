@@ -14,6 +14,7 @@ std::string Game::GetCin()
 	std::cout << "-> ";
 	std::string userCin;
 	std::getline(std::cin, userCin);
+	std::cout << std::endl;
 
 	return userCin;
 }
@@ -64,15 +65,11 @@ void Game::Battle(Monster& monster1, Monster& monster2)
 				if (monster1.GetHp() > 0 && monster2.GetHp() > 0)
 				{
 					Monster::Attack(monster1, monster2);
-					std::cout << monster1.GetName() << " Hp : " << monster1.GetHp() << std::endl;
-					std::cout << monster2.GetName() << " Hp : " << monster2.GetHp() << std::endl;
 					nbrOfTurn++;
 
 					if (monster1.GetHp() > 0 && monster2.GetHp() > 0)
 					{
 						Monster::Attack(monster2, monster1);
-						std::cout << monster1.GetName() << " Hp : " << monster1.GetHp() << std::endl;
-						std::cout << monster2.GetName() << " Hp : " << monster2.GetHp() << std::endl;
 						nbrOfTurn++;
 					}
 
@@ -94,15 +91,11 @@ void Game::Battle(Monster& monster1, Monster& monster2)
 				if (monster1.GetHp() > 0 && monster2.GetHp() > 0)
 				{
 					Monster::Attack(monster2, monster1);
-					std::cout << monster1.GetName() << " Hp : " << monster1.GetHp() << std::endl;
-					std::cout << monster2.GetName() << " Hp : " << monster2.GetHp() << std::endl;
 					nbrOfTurn++;
 
 					if (monster1.GetHp() > 0 && monster2.GetHp() > 0)
 					{
 						Monster::Attack(monster1, monster2);
-						std::cout << monster1.GetName() << " Hp : " << monster1.GetHp() << std::endl;
-						std::cout << monster2.GetName() << " Hp : " << monster2.GetHp() << std::endl;
 						nbrOfTurn++;
 					}
 
@@ -117,7 +110,7 @@ void Game::Battle(Monster& monster1, Monster& monster2)
 	else if (monster1.GetRaceToString() == monster2.GetRaceToString())
 	{
 		// The monsters have the same race, so there is no battle
-		std::cout << "NANANAN do not make a battle between same race" << std::endl;
+		std::cout << "NOOOOOOOO !!! you cannot make a battle between two Monsters of the same race." << std::endl;
 	}
 
 	else
@@ -144,43 +137,40 @@ bool Game::ActivateChosenOption(bool& game, std::string chosenOption, std::map<s
 	// If option 1, the user can create a Monster.
 	if (chosenOption == "1")
 	{
-		//std::vector<Monster> monsters;
-
 		Monster monster = Monster::CreateMonster();
 
-		monster.AddMonster(monsters, monster.GetName(), monster);
+		// Add the Monster created in the Monster collection
+		Monster::AddMonster(monsters, monster.GetName(), monster);
 
-		monster.DisplayMonsters(monsters);
-
-		//monsters.emplace_back(monster);
-
-		///*Monster monster2 = Monster::CreateMonster();
-		//monster.AddMonster(monster2);*/
-		////std::string monster1Name = Monster::SetUpName();
-
-		////Monster monster2 = Monster::CreateMonster();
-		////std::string monster2Name = Monster::SetUpName();
-
-		////std::pair<std::string, Monster> p1(monster.GetName(), monster);
-		////std::pair<std::string, Monster> p2(monster2.GetName(), monster2);
-
-		////monster2.AddMonster(p2);
-
-		//Monster::DisplayMonsters(monsters);
+		Monster::DisplayMonsters(monsters);
 	}
 
-	// If option 2, activate the OptionTwo function which consist to find a phone number with someone's name.
+	// If option 2, ask the user 2 Monsters and make a battle bewteen them.
 	else if (chosenOption == "2")
 	{
-		std::cout << "Type the name of the first monster that will fight" << std::endl;
-		std::string monster1Name = GetCin();
-		std::cout << "Type the name of the second monster that will fight" << std::endl;
-		std::string monster2Name = GetCin();
-		
-		Monster monster1 = monsters[monster1Name];
-		Monster monster2 = monsters[monster2Name];
+		// The Monster collection need at least 2 Monsters to make a battle, so check if it's the case
+		if (monsters.size() >= 2)
+		{
+			std::cout << "Your Monster Collection : " << std::endl;
+			Monster::DisplayMonsters(monsters);
 
-		Battle(monster1, monster2);
+			std::cout << "Type the name of the first monster that will fight " << std::endl;
+			std::string monster1Name = GetCin();
+			std::cout << "Type the name of the second monster that will fight" << std::endl;
+			std::string monster2Name = GetCin();
+
+			Monster monster1 = monsters[monster1Name];
+			Monster monster2 = monsters[monster2Name];
+
+			Battle(monster1, monster2);
+		}
+
+		// The Monster collection doesn't contain enough Monsters to make a battle
+		else
+		{
+			std::cout << "You need at least 2 Monsters to make a battle.  "	<< std::endl;
+			std::cout << "You can create Monsters by using the option [1]." << std::endl;
+		}
 	}
 
 	// If option 3, quite the program.

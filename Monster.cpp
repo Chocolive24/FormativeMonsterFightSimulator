@@ -64,12 +64,12 @@ Race Monster::SetUpRace()
 {
 	Race race{};
 
-	std::cout << "Choose your Monster's Race." << std::endl;
-	std::cout << "=======Race=======" << std::endl;
-	std::cout << "[1] Orc.          " << std::endl;
-	std::cout << "[2] Troll.        " << std::endl;
-	std::cout << "[3] Goblin.       " << std::endl;
-	std::cout << "==================" << std::endl;
+	std::cout << "Choose your Monster's Race." << std::endl << std::endl;
+	std::cout << "=======Race======="		   << std::endl;
+	std::cout << "[1] Orc.          "		   << std::endl;
+	std::cout << "[2] Troll.        "		   << std::endl;
+	std::cout << "[3] Goblin.       "		   << std::endl;
+	std::cout << "=================="		   << std::endl;
 	std::string userAnswer = Game::GetCin();
 
 	if (userAnswer == "1")
@@ -90,7 +90,7 @@ Race Monster::SetUpRace()
 
 int Monster::SetUpHp()
 {
-	std::cout << std::endl << "Set the number of Hp of your Monster." << std::endl;
+	std::cout  << "Set the number of Hp of your Monster." << std::endl;
 
 	int hp = std::stoi(GetNumberTyped());
 
@@ -161,15 +161,16 @@ void Monster::DisplayMonsters(std::map<std::string, Monster>& monsters)
 {
 	std::cout << "Your Monsters :" << std::endl << std::endl;
 
-	// Print the Monsters (alphabetical order).
+	// Print the Monsters with their attributes (alphabetical order).
 	for (auto it = monsters.begin(); it != monsters.end(); it++)
 	{
-		std::cout << "Name : "     << it->first				    << " / "
+		// First = key, second = value.
+		std::cout << "Name : "     << it->first					   << " / "
 				  << " Race : "    << it->second.GetRaceToString() << " /"
-				  << " Hp : "      << it->second._hp			<< " /"
-				  << " Attack : "  << it->second._attack		<< " /"
-				  << " Defense : " << it->second._defense		<< " /"
-			      << " Speed : "   << it->second._speed			<< " /" << '\n'; // First = key, second = value.
+				  << " Hp : "      << it->second._hp			   << " /"
+				  << " Attack : "  << it->second._attack		   << " /"
+				  << " Defense : " << it->second._defense		   << " /"
+			      << " Speed : "   << it->second._speed			   << " /" << std::endl << std::endl; 
 	}
 }
 
@@ -181,10 +182,14 @@ void Monster::Attack(Monster& attacker, Monster& defender)
 	{
 		damage = 0;
 	}
-
 	defender._hp -= damage;
 
-	//std::cout << defender._hp;
+	if (defender._hp < 0)
+	{
+		defender._hp = 0;
+	}
+	std::cout << attacker._name << " Hp : " << attacker._hp << std::endl;
+	std::cout << defender._name << " Hp : " << defender._hp << std::endl;
 }
 
 std::string Monster::GetRaceToString()

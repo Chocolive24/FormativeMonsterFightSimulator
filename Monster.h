@@ -28,7 +28,7 @@ private:
 
 public:
 	Monster(Race race, int hp, int attack, int defense, int speed, std::string& name);
-	Monster() {}
+	Monster() = default;
 
 	static std::string GetNumberTyped();
 
@@ -48,8 +48,8 @@ public:
 
 	static Monster CreateMonster();
 
-	void AddMonster(std::map<std::string, Monster>& monsters, std::string name, Monster& monster);
-	void DisplayMonsters(std::map<std::string, Monster>& monsters);
+	static void AddMonster(std::map<std::string, Monster>& monsters, std::string name, Monster& monster);
+	static void DisplayMonsters(std::map<std::string, Monster>& monsters);
 
 	static void Attack(Monster& attacker, Monster& defender);
 

@@ -10,4 +10,4 @@
 | Create the Battle system in the the Game Class | 3h | 4h20 |
 | Comment and clean the code | 2h | 20min |
 | Resolve bugs | 2h | 4h |
-| Improve the game | 10h | - |
+| Improve the game | 10h | 3h |

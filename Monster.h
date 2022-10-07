@@ -1,14 +1,12 @@
 #pragma once
 #include <map>
 #include <string>
-#include <vector>
 
 enum class Race
 {
 	ORC,
 	TROLL,
 	GOBLIN,
-	DEFAULT,
 };
 
 class Monster
@@ -23,14 +21,14 @@ private:
 
 	std::string _name;
 
-	//std::map<std::string, Monster> _monsters;
-	
-
 public:
+
 	Monster(Race race, int hp, int attack, int defense, int speed, std::string& name);
 	Monster() = default;
 
 	static std::string GetNumberTyped();
+
+	// ------------------------------------------------------------------------------------------------------------------
 
 	static Race SetUpRace();
 	static int SetUpHp();
@@ -39,21 +37,24 @@ public:
 	static int SetUpSpeed();
 	static std::string SetUpName();
 
+	// ------------------------------------------------------------------------------------------------------------------
+
+	// Methods to get attributes.
 	std::string GetRaceToString();
-	int GetHp() { return _hp; }
-	int GetAttack() { return _attack; }
-	int GetDefense() { return _defense; }
-	int GetSpeed() { return _speed; }
-	std::string GetName() { return _name; }
+	int	GetHp()			  { return _hp;		 }
+	int	GetAttack()		  { return _attack;  }
+	int	GetDefense()	  { return _defense; }
+	int	GetSpeed()		  { return _speed;	 }
+	std::string GetName() { return _name;  }
+
+	// ------------------------------------------------------------------------------------------------------------------
 
 	static Monster CreateMonster();
-
 	static void AddMonster(std::map<std::string, Monster>& monsters, std::string name, Monster& monster);
 	static void DisplayMonsters(std::map<std::string, Monster>& monsters);
 
+	// ------------------------------------------------------------------------------------------------------------------
+
 	static void Attack(Monster& attacker, Monster& defender);
-
-	
-
 };
 

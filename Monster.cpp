@@ -5,6 +5,8 @@
 #include <algorithm>
 #include <iostream>
 
+// ------------------------------------------------------------------------------------------------------------------
+
 Monster::Monster(Race race, int hp, int attack, int defense, int speed, std::string& name)
 {
 	_race = race;
@@ -14,6 +16,7 @@ Monster::Monster(Race race, int hp, int attack, int defense, int speed, std::str
 	_speed = speed;
 	_name = name;
 }
+// ------------------------------------------------------------------------------------------------------------------
 
 std::string Monster::GetNumberTyped()
 {
@@ -60,6 +63,8 @@ std::string Monster::GetNumberTyped()
 	return numberTyped;
 }
 
+// ------------------------------------------------------------------------------------------------------------------
+
 Race Monster::SetUpRace()
 {
 	Race race{};
@@ -88,6 +93,8 @@ Race Monster::SetUpRace()
 	return race;
 }
 
+// ------------------------------------------------------------------------------------------------------------------
+
 int Monster::SetUpHp()
 {
 	std::cout  << "Set the number of Hp of your Monster." << std::endl;
@@ -96,6 +103,8 @@ int Monster::SetUpHp()
 
 	return hp;
 }
+
+// ------------------------------------------------------------------------------------------------------------------
 
 int Monster::SetUpAttack()
 {
@@ -106,6 +115,8 @@ int Monster::SetUpAttack()
 	return attack;
 }
 
+// ------------------------------------------------------------------------------------------------------------------
+
 int Monster::SetUpDefense()
 {
 	std::cout << std::endl << std::endl << "Set the number of Defense Points of your Monster." << std::endl;
@@ -114,6 +125,8 @@ int Monster::SetUpDefense()
 
 	return defense;
 }
+
+// ------------------------------------------------------------------------------------------------------------------
 
 int Monster::SetUpSpeed()
 {
@@ -124,14 +137,19 @@ int Monster::SetUpSpeed()
 	return speed;
 }
 
+// ------------------------------------------------------------------------------------------------------------------
+
 std::string Monster::SetUpName()
 {
 	std::cout << std::endl << std::endl << "Finally, set the name of your Monster." << std::endl;
 	std::string name = Game::GetCin();
 	std::cout << std::endl;
+	system("cls");
 
 	return name;
 }
+
+// ------------------------------------------------------------------------------------------------------------------
 
 Monster Monster::CreateMonster()
 {
@@ -147,7 +165,7 @@ Monster Monster::CreateMonster()
 	return monster;
 }
 
-
+// ------------------------------------------------------------------------------------------------------------------
 
 void Monster::AddMonster(std::map<std::string, Monster>& monsters, std::string name, Monster& monster)
 {
@@ -157,9 +175,11 @@ void Monster::AddMonster(std::map<std::string, Monster>& monsters, std::string n
 	monsters.insert(p);
 }
 
+// ------------------------------------------------------------------------------------------------------------------
+
 void Monster::DisplayMonsters(std::map<std::string, Monster>& monsters)
 {
-	std::cout << "Your Monsters :" << std::endl << std::endl;
+	std::cout << "Your Monster Collection :" << std::endl << std::endl;
 
 	// Print the Monsters with their attributes (alphabetical order).
 	for (auto it = monsters.begin(); it != monsters.end(); it++)
@@ -173,6 +193,8 @@ void Monster::DisplayMonsters(std::map<std::string, Monster>& monsters)
 			      << " Speed : "   << it->second._speed			   << " /" << std::endl << std::endl; 
 	}
 }
+
+// ------------------------------------------------------------------------------------------------------------------
 
 void Monster::Attack(Monster& attacker, Monster& defender)
 {
@@ -188,9 +210,15 @@ void Monster::Attack(Monster& attacker, Monster& defender)
 	{
 		defender._hp = 0;
 	}
+
+	std::cout << " Damages inflicted by " << attacker.GetName() << " : "
+			  << damage << std::endl << std::endl;
+
 	std::cout << attacker._name << " Hp : " << attacker._hp << std::endl;
-	std::cout << defender._name << " Hp : " << defender._hp << std::endl;
+	std::cout << defender._name << " Hp : " << defender._hp	<< std::endl;
 }
+
+// ------------------------------------------------------------------------------------------------------------------
 
 std::string Monster::GetRaceToString()
 {
@@ -206,54 +234,3 @@ std::string Monster::GetRaceToString()
 			return "Unknown";
 	}
 }
-
-
-
-//
-//void Monster::AddMonster(Monster& monster)
-//{
-//	_monsters.emplace_back(monster);
-//}
-
-//void Monster::DisplayMonsters(std::vector<Monster>& _monsters)
-//{
-//	for (auto& monster : _monsters)
-//	{
-//		std::cout << "Name : " << monster.GetName() << " / "
-//			<< " Race : " << monster.GetRaceToString() << " /"
-//			<< " Hp : " << monster._hp << " /"
-//			<< " Attack : " << monster._attack << " /"
-//			<< " Defense : " << monster._defense << " /"
-//			<< " Speed : " << monster._speed << " /";
-//	}
-//}
-
-//Monster Monster::CreateMonster(Monster monster)
-//{
-//	Monster monster(Race::DEFAULT, 0.0f, 0.0f, 0.0f, 0.0f);
-//	std::cout << "Choose your Monster's Race." << std::endl;
-//	std::cout << "=======Race=======" << std::endl;
-//	std::cout << "[1] Orc.          " << std::endl;
-//	std::cout << "[2] Troll.        " << std::endl;
-//	std::cout << "[3] Goblin.       " << std::endl;
-//	std::cout << "==================" << std::endl;
-//	std::string userAnswer = Game::GetCin();
-//
-//	if (userAnswer == "1")
-//	{
-//		monster.SetUpRace(Race::ORC);
-//		std::cout << monster.GetRaceToString();
-//	}
-//	else if (userAnswer == "2")
-//	{
-//		monster.SetUpRace(Race::TROLL);
-//		std::cout << monster.GetRaceToString();
-//	}
-//	else if (userAnswer == "3")
-//	{
-//		monster.SetUpRace(Race::GOBLIN);
-//		std::cout << monster.GetRaceToString();
-//	}
-//
-//	return monster;
-//}

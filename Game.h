@@ -13,7 +13,7 @@ public:
 	static void WelcomeScreen();
 	static std::string DisplayMainMenu();
 
-	static void Battle(Monster& monstre1, Monster& monstre2);
+	static void Battle(Monster& monster1, Monster& monster2);
 
 	static bool ActivateChosenOption(bool& game, std:: string chosenOption, std::map<std::string, Monster>& monsters);
 	

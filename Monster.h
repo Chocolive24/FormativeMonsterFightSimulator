@@ -28,6 +28,7 @@ private:
 
 public:
 	Monster(Race race, int hp, int attack, int defense, int speed, std::string& name);
+	Monster() {}
 
 	static std::string GetNumberTyped();
 
@@ -38,9 +39,12 @@ public:
 	static int SetUpSpeed();
 	static std::string SetUpName();
 
-	std::string GetName() { return _name; }
+	std::string GetRaceToString();
 	int GetHp() { return _hp; }
+	int GetAttack() { return _attack; }
+	int GetDefense() { return _defense; }
 	int GetSpeed() { return _speed; }
+	std::string GetName() { return _name; }
 
 	static Monster CreateMonster();
 
@@ -49,7 +53,7 @@ public:
 
 	static void Attack(Monster& attacker, Monster& defender);
 
-	std::string RaceToString();
+	
 
 };
 

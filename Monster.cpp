@@ -165,7 +165,7 @@ void Monster::DisplayMonsters(std::map<std::string, Monster>& monsters)
 	for (auto it = monsters.begin(); it != monsters.end(); it++)
 	{
 		std::cout << "Name : "     << it->first				    << " / "
-				  << " Race : "    << it->second.RaceToString() << " /"
+				  << " Race : "    << it->second.GetRaceToString() << " /"
 				  << " Hp : "      << it->second._hp			<< " /"
 				  << " Attack : "  << it->second._attack		<< " /"
 				  << " Defense : " << it->second._defense		<< " /"
@@ -187,7 +187,7 @@ void Monster::Attack(Monster& attacker, Monster& defender)
 	//std::cout << defender._hp;
 }
 
-std::string Monster::RaceToString()
+std::string Monster::GetRaceToString()
 {
 	switch (_race)
 	{
@@ -215,7 +215,7 @@ std::string Monster::RaceToString()
 //	for (auto& monster : _monsters)
 //	{
 //		std::cout << "Name : " << monster.GetName() << " / "
-//			<< " Race : " << monster.RaceToString() << " /"
+//			<< " Race : " << monster.GetRaceToString() << " /"
 //			<< " Hp : " << monster._hp << " /"
 //			<< " Attack : " << monster._attack << " /"
 //			<< " Defense : " << monster._defense << " /"
@@ -237,17 +237,17 @@ std::string Monster::RaceToString()
 //	if (userAnswer == "1")
 //	{
 //		monster.SetUpRace(Race::ORC);
-//		std::cout << monster.RaceToString();
+//		std::cout << monster.GetRaceToString();
 //	}
 //	else if (userAnswer == "2")
 //	{
 //		monster.SetUpRace(Race::TROLL);
-//		std::cout << monster.RaceToString();
+//		std::cout << monster.GetRaceToString();
 //	}
 //	else if (userAnswer == "3")
 //	{
 //		monster.SetUpRace(Race::GOBLIN);
-//		std::cout << monster.RaceToString();
+//		std::cout << monster.GetRaceToString();
 //	}
 //
 //	return monster;

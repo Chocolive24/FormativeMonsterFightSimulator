@@ -2,6 +2,7 @@
 #include "Monster.h"
 
 #include <iostream>
+#include <map>
 
 // ------------------------------------------------------------------------------------------------------------------
 
@@ -58,16 +59,17 @@ void Game::Battle(Monster& monster1, Monster& monster2)
 {
 	bool isInfiniteFight = false;
 
+
 	int nbrOfTurn = 0;
 
-	Monster attacker{};
+	/*Monster attacker{};
 	Monster defender{};
-	Monster tmpMonster{};
+	Monster tmpMonster{};*/
 
 	// --------------------------------------------------------------------------------------------------------------
 
 	// Check if the monsters attributes are valid to make a battle.
-	// If the the attack of the 2 monsters is lower or equal to the defense of the other,
+	// If the attack of the 2 monsters is lower or equal to the defense of the other,
 	// neither monster will do damage. So the fight would be infinite
 	if (monster1.GetAttack() <= monster2.GetDefense() && monster2.GetAttack() <= monster1.GetDefense())
 	{
@@ -82,23 +84,42 @@ void Game::Battle(Monster& monster1, Monster& monster2)
 
 		if (monster1.GetSpeed() > monster2.GetSpeed())
 		{
-			attacker = monster1;
-			defender = monster2;
+			monster1.SetIsAttacking(true);
+			monster2.SetIsAttacking(false);
+			/*attacker = monster1;
+			defender = monster2;*/
 		}
 
 		else
 		{
-			attacker = monster2;
-			defender = monster1;
+			monster1.SetIsAttacking(false);
+			monster2.SetIsAttacking(true);
+			/*attacker = monster2;
+			defender = monster1;*/
 		}
 
 		// ----------------------------------------------------------------------------------------------------------
 
 		while (true)
 		{
-			if (attacker.GetHp() > 0 && defender.GetHp() > 0)
+			/*if (monster1.GetIsAttacking())
+			{
+				attacker = monster1;
+				defender = monster2;
+			}
+
+			else if (monster2.GetIsAttacking())
+			{
+				attacker = monster2;
+				defender = monster1;
+			}*/
+
+			if (monster1.GetHp() > 0 && monster2.GetHp() > 0)
 			{
 				nbrOfTurn++;
+
+				Monster& attacker = monster1.GetIsAttacking() ? monster1 : monster2;
+				Monster& defender = monster1.GetIsAttacking() ? monster2 : monster1;
 
 				std::cout << "Turn number " << nbrOfTurn << ": " 
 						  << attacker.GetName() << "'s attack turn.	" << std::endl;
@@ -110,9 +131,12 @@ void Game::Battle(Monster& monster1, Monster& monster2)
 					system("cls");
 				}
 
-				tmpMonster = attacker;
+				monster1.SetIsAttacking(!monster1.GetIsAttacking());
+				monster2.SetIsAttacking(!monster2.GetIsAttacking());
+
+				/*tmpMonster = attacker;
 				attacker   = defender;
-				defender   = tmpMonster;
+				defender   = tmpMonster;*/
 			}
 
 			else
@@ -120,17 +144,17 @@ void Game::Battle(Monster& monster1, Monster& monster2)
 				break;
 			}
 
-			if (defender.GetHp() <= 0)
+			if (monster1.GetHp() <= 0)
 			{
 				//std::cout << "===============================================" << std::endl << std::endl;
-				std::cout << attacker.GetName() << " is the Winner !!!" << std::endl << std::endl;
+				std::cout << monster2.GetName() << " is the Winner !!!" << std::endl << std::endl;
 				std::cout << "Number of turns = " << nbrOfTurn << std::endl;
 			}
 
-			else if (attacker.GetHp() <= 0)
+			else if (monster2.GetHp() <= 0)
 			{
 				//std::cout << "===============================================" << std::endl << std::endl;
-				std::cout << std::endl << defender.GetName() << " is the Winner !!!" << std::endl << std::endl;
+				std::cout << std::endl << monster1.GetName() << " is the Winner !!!" << std::endl << std::endl;
 				std::cout << "Number of turns = " << nbrOfTurn << std::endl;
 			}
 
@@ -184,10 +208,21 @@ bool Game::ActivateChosenOption(bool& game, std::string chosenOption, std::map<s
 			std::string monster2Name = GetCin();
 			system("cls");
 
-			Monster monster1 = monsters[monster1Name];
-			Monster monster2 = monsters[monster2Name];
+			// Check if the names typed are in the Monster Collection. (contains() need C++20 to work)
+			if (monsters.contains(monster1Name) && monsters.contains(monster2Name))
+			{
+				Monster monster1 = monsters[monster1Name];
+				Monster monster2 = monsters[monster2Name];
 
-			Battle(monster1, monster2);
+				Battle(monster1, monster2);
+			}
+
+			else
+			{
+				std::cout << "There is at least one wrong name in your input, please try again." << std::endl;
+			}
+			
+			
 		}
 
 		// ----------------------------------------------------------------------------------------------------------

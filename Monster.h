@@ -13,13 +13,15 @@ class Monster
 {
 private:
 
-	Race _race;
-	int _hp;
-	int _attack;
-	int _defense;
-	int _speed;
+	Race _race{};
+	int _hp{};
+	int _attack{};
+	int _defense{};
+	int _speed{};
 
-	std::string _name;
+	std::string _name{};
+
+	bool _isAttacking = false;
 
 public:
 
@@ -36,6 +38,7 @@ public:
 	static int SetUpDefense();
 	static int SetUpSpeed();
 	static std::string SetUpName();
+	bool SetIsAttacking(bool state);
 
 	// ------------------------------------------------------------------------------------------------------------------
 
@@ -46,6 +49,7 @@ public:
 	int	GetDefense()	  { return _defense; }
 	int	GetSpeed()		  { return _speed;	 }
 	std::string GetName() { return _name;  }
+	bool GetIsAttacking() { return _isAttacking; }
 
 	// ------------------------------------------------------------------------------------------------------------------
 

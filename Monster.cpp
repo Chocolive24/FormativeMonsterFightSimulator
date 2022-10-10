@@ -151,6 +151,11 @@ std::string Monster::SetUpName()
 	return name;
 }
 
+bool Monster::SetIsAttacking(bool state)
+{
+	return _isAttacking = state;
+}
+
 // ------------------------------------------------------------------------------------------------------------------
 
 Monster Monster::CreateMonster()

@@ -3,6 +3,7 @@
 #include "Monster.h"
 
 #include <algorithm>
+#include <thread>
 #include <iostream>
 
 // ------------------------------------------------------------------------------------------------------------------
@@ -16,6 +17,7 @@ Monster::Monster(Race race, int hp, int attack, int defense, int speed, std::str
 	_speed = speed;
 	_name = name;
 }
+
 // ------------------------------------------------------------------------------------------------------------------
 
 std::string Monster::GetNumberTyped()
@@ -185,7 +187,7 @@ void Monster::DisplayMonsters(std::map<std::string, Monster>& monsters)
 	for (auto it = monsters.begin(); it != monsters.end(); it++)
 	{
 		// First = key, second = value.
-		std::cout << "Name : "     << it->first					   << " / "
+		std::cout << "Name : "     << it->first					   << " /"
 				  << " Race : "    << it->second.GetRaceToString() << " /"
 				  << " Hp : "      << it->second._hp			   << " /"
 				  << " Attack : "  << it->second._attack		   << " /"
@@ -211,11 +213,15 @@ void Monster::Attack(Monster& attacker, Monster& defender)
 		defender._hp = 0;
 	}
 
-	std::cout << " Damages inflicted by " << attacker.GetName() << " : "
+	std::cout << "Damages inflicted by " << attacker.GetName() << " : "
 			  << damage << std::endl << std::endl;
 
 	std::cout << attacker._name << " Hp : " << attacker._hp << std::endl;
 	std::cout << defender._name << " Hp : " << defender._hp	<< std::endl;
+	std::cout << "===============================================" << std::endl;
+
+	std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
 }
 
 // ------------------------------------------------------------------------------------------------------------------

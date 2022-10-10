@@ -100,11 +100,15 @@ void Game::Battle(Monster& monster1, Monster& monster2)
 			{
 				nbrOfTurn++;
 
-				std::cout << "===============================================" << std::endl;
-				std::cout << "Turn number " << nbrOfTurn << " :	"
-						  << attacker.GetName() << "'s attack turn.			 " << std::endl;
+				std::cout << "Turn number " << nbrOfTurn << ": " 
+						  << attacker.GetName() << "'s attack turn.	" << std::endl;
 
 				Monster::Attack(attacker, defender);
+
+				if (nbrOfTurn % 5 == 0) 
+				{
+					system("cls");
+				}
 
 				tmpMonster = attacker;
 				attacker   = defender;
@@ -116,6 +120,20 @@ void Game::Battle(Monster& monster1, Monster& monster2)
 				break;
 			}
 
+			if (defender.GetHp() <= 0)
+			{
+				//std::cout << "===============================================" << std::endl << std::endl;
+				std::cout << attacker.GetName() << " is the Winner !!!" << std::endl << std::endl;
+				std::cout << "Number of turns = " << nbrOfTurn << std::endl;
+			}
+
+			else if (attacker.GetHp() <= 0)
+			{
+				//std::cout << "===============================================" << std::endl << std::endl;
+				std::cout << std::endl << defender.GetName() << " is the Winner !!!" << std::endl << std::endl;
+				std::cout << "Number of turns = " << nbrOfTurn << std::endl;
+			}
+
 		}
 
 		// ----------------------------------------------------------------------------------------------------------
@@ -125,28 +143,12 @@ void Game::Battle(Monster& monster1, Monster& monster2)
 	else if (monster1.GetRaceToString() == monster2.GetRaceToString())
 	{
 		// The monsters have the same race, so there is no battle
-		std::cout << "NOOOOOOOO !!! you cannot make a battle between two Monsters of the same race." << std::endl;
+		std::cout << "NOOOOOOOO !!! You cannot make a battle between two Monsters of the same race." << std::endl;
 	}
 
 	else
 	{
 		std::cout << "Neither monster is strong enough to beat the other. So it's a tie !!! " << std::endl;
-	}
-
-	// --------------------------------------------------------------------------------------------------------------
-
-	if (defender.GetHp() <= 0)
-	{
-		std::cout << "===============================================" << std::endl << std::endl;
-		std::cout << attacker.GetName() << " is the Winner !!!"		   << std::endl << std::endl;
-		std::cout << "Number of turns = " << nbrOfTurn				   << std::endl;
-	}
-
-	else if (attacker.GetHp() <= 0)
-	{
-		std::cout << "===============================================" << std::endl << std::endl;
-		std::cout << defender.GetName() << " is the Winner !!!"		   << std::endl << std::endl;
-		std::cout << "Number of turns = " << nbrOfTurn				   << std::endl;
 	}
 
 }

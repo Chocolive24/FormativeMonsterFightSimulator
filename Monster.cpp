@@ -245,3 +245,17 @@ std::string Monster::GetRaceToString()
 			return "Unknown";
 	}
 }
+
+int Monster::CreateMonsterMenu()
+{
+	std::cout << "What would you like to do ?" << std::endl;
+	std::cout << "=================================" << std::endl;
+	std::cout << "[1] Continue to create Monsters" << std::endl;
+	std::cout << "[2] Back to the menu" << std::endl;
+	std::cout << "=================================" << std::endl;
+
+	int userAnswer = std::stoi(GetNumberTyped());
+	system("cls");
+
+	return userAnswer;
+}

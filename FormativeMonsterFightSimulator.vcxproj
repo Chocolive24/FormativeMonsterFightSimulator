@@ -129,13 +129,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="audio\AudioManager.cpp" />
     <ClCompile Include="FormativeMonsterFightSimulator.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Monster.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="audio\AudioManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Monster.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="audio\battle_theme.wav" />
+    <Media Include="audio\menu_theme.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

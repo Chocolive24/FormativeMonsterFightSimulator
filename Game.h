@@ -7,7 +7,7 @@ class Game
 {
 public:
 
-	static void IgnoreLigne();
+	static void IgnoreLine();
 	static std::string GetCin();
 
 	static void WelcomeScreen();
@@ -16,6 +16,8 @@ public:
 	static void Battle(Monster& monster1, Monster& monster2);
 
 	static bool ActivateChosenOption(bool& game, std:: string chosenOption, std::map<std::string, Monster>& monsters);
+
+	static int BattleMenu();
 	
 };
 

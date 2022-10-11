@@ -1,5 +1,7 @@
 #pragma once
+#include <iostream>
 #include <map>
+#include <ostream>
 #include <string>
 
 enum class Race
@@ -60,5 +62,9 @@ public:
 	// ------------------------------------------------------------------------------------------------------------------
 
 	static void Attack(Monster& attacker, Monster& defender);
+
+	static int CreateMonsterMenu();  // mettre dans Game
 };
+
+
 

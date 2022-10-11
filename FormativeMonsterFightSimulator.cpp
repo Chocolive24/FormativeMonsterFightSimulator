@@ -2,6 +2,7 @@
 #include "Monster.h"
 
 #include <iostream>
+#include "audio/AudioManager.h"
 
 int main()
 {
@@ -9,16 +10,18 @@ int main()
 
 	std::map<std::string, Monster> monsters;
 
-	Game::WelcomeScreen();
-	Game::ActivateChosenOption(game, Game::DisplayMainMenu(), monsters);
+	AudioManager::Play("audio/menu_theme.wav");
 
 	// ------------------------------------------------------------------------------------------------------------------
 
 	while (game)
 	{
+		Game::WelcomeScreen();
 		Game::ActivateChosenOption(game, Game::DisplayMainMenu(), monsters);
 	}
-	
+
+	// ------------------------------------------------------------------------------------------------------------------
+
 	return EXIT_SUCCESS;
 }
 

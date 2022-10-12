@@ -1,7 +1,6 @@
 #pragma once
-#include <iostream>
+
 #include <map>
-#include <ostream>
 #include <string>
 
 enum class Race
@@ -26,11 +25,9 @@ private:
 	bool _isAttacking = false;
 
 public:
-
+	
 	Monster(Race race, int hp, int attack, int defense, int speed, std::string& name);
 	Monster() = default;
-
-	static std::string GetNumberTyped();
 
 	// ------------------------------------------------------------------------------------------------------------------
 
@@ -59,11 +56,7 @@ public:
 	static void AddMonster(std::map<std::string, Monster>& monsters, std::string name, Monster& monster);
 	static void DisplayMonsters(std::map<std::string, Monster>& monsters);
 
-	// ------------------------------------------------------------------------------------------------------------------
-
 	static void Attack(Monster& attacker, Monster& defender);
-
-	static int CreateMonsterMenu();  // mettre dans Game
 };
 
 

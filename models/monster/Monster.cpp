@@ -1,8 +1,6 @@
-#include "conio.h" // For the _getch() function.
-#include "Game.h"
+#include "../game/Game.h"
 #include "Monster.h"
 
-#include <algorithm>
 #include <thread>
 #include <iostream>
 
@@ -20,53 +18,6 @@ Monster::Monster(Race race, int hp, int attack, int defense, int speed, std::str
 
 // ------------------------------------------------------------------------------------------------------------------
 
-std::string Monster::GetNumberTyped()
-{
-	std::cout << "-> ";
-
-	std::string numberTyped;
-
-	do
-	{
-		char key = _getch();
-
-		if (key >= '0' && key <= '9')
-		{
-			numberTyped += key;
-			std::cout << key;
-		}
-
-		// If the key pressed is "delete".
-		if (key == 8)
-		{
-			// If the attribute's value is not empty.
-			if (!numberTyped.empty())
-			{
-				// Delete the last character and put the cursor back from 1 character in the console.
-				numberTyped.pop_back();
-				std::cout << "\b \b";
-			}
-		}
-
-		if (key == 13 && numberTyped != "0")
-		{
-			if (numberTyped.empty())
-			{
-				// The attribute's value is empty, so ask again to enter a number of hp
-				std::cout << std::endl << "No value entered. Please enter a valid one" << std::endl;
-				std::cout << "-> ";
-			}
-
-			break;
-
-		}
-	} while (true);
-
-	return numberTyped;
-}
-
-// ------------------------------------------------------------------------------------------------------------------
-
 Race Monster::SetUpRace()
 {
 	Race race{};
@@ -77,17 +28,17 @@ Race Monster::SetUpRace()
 	std::cout << "[2] Troll.        "		   << std::endl;
 	std::cout << "[3] Goblin.       "		   << std::endl;
 	std::cout << "=================="		   << std::endl;
-	std::string userAnswer = Game::GetCin();
+	int userAnswer = std::stoi(Game::GetNumberTyped());
 
-	if (userAnswer == "1")
+	if (userAnswer == 1)
 	{
 		race = Race::ORC;
 	}
-	else if (userAnswer == "2")
+	else if (userAnswer == 2)
 	{
 		race = Race::TROLL;
 	}
-	else if (userAnswer == "3")
+	else if (userAnswer == 3)
 	{
 		race = Race::GOBLIN;
 	}
@@ -99,9 +50,9 @@ Race Monster::SetUpRace()
 
 int Monster::SetUpHp()
 {
-	std::cout  << "Set the number of Hp of your Monster." << std::endl;
+	std::cout << std::endl << std::endl << "Set the number of Hp of your Monster." << std::endl;
 
-	int hp = std::stoi(GetNumberTyped());
+	int hp = std::stoi(Game::GetNumberTyped());
 
 	return hp;
 }
@@ -112,7 +63,7 @@ int Monster::SetUpAttack()
 {
 	std::cout << std::endl << std::endl << "Set the number of Attack Damage of your Monster." << std::endl;
 
-	int attack = std::stoi(GetNumberTyped());
+	int attack = std::stoi(Game::GetNumberTyped());
 
 	return attack;
 }
@@ -123,7 +74,7 @@ int Monster::SetUpDefense()
 {
 	std::cout << std::endl << std::endl << "Set the number of Defense Points of your Monster." << std::endl;
 
-	int defense = std::stoi(GetNumberTyped());
+	int defense = std::stoi(Game::GetNumberTyped());
 
 	return defense;
 }
@@ -134,7 +85,7 @@ int Monster::SetUpSpeed()
 {
 	std::cout << std::endl << std::endl << "Set the Speed of your Monster." << std::endl;
 
-	int speed = std::stoi(GetNumberTyped());
+	int speed = std::stoi(Game::GetNumberTyped());
 
 	return speed;
 }
@@ -246,16 +197,4 @@ std::string Monster::GetRaceToString()
 	}
 }
 
-int Monster::CreateMonsterMenu()
-{
-	std::cout << "What would you like to do ?" << std::endl;
-	std::cout << "=================================" << std::endl;
-	std::cout << "[1] Continue to create Monsters" << std::endl;
-	std::cout << "[2] Back to the menu" << std::endl;
-	std::cout << "=================================" << std::endl;
-
-	int userAnswer = std::stoi(GetNumberTyped());
-	system("cls");
-
-	return userAnswer;
-}
+// ------------------------------------------------------------------------------------------------------------------

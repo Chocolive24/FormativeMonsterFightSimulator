@@ -1,8 +1,8 @@
-#include "Game.h"
-#include "Monster.h"
+#include "models/audioManager/AudioManager.h"
+#include "models/game/Game.h"
+#include "models/monster/Monster.h"
 
 #include <iostream>
-#include "audio/AudioManager.h"
 
 int main()
 {
@@ -10,7 +10,7 @@ int main()
 
 	std::map<std::string, Monster> monsters;
 
-	AudioManager::Play("audio/menu_theme.wav");
+	AudioManager::Play("assets/music/menu_theme.wav", true);
 
 	// ------------------------------------------------------------------------------------------------------------------
 

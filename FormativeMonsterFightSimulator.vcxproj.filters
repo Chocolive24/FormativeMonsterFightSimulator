@@ -18,32 +18,32 @@
     <ClCompile Include="FormativeMonsterFightSimulator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Monster.cpp">
+    <ClCompile Include="models\monster\Monster.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
+    <ClCompile Include="models\game\Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="audio\AudioManager.cpp">
+    <ClCompile Include="models\audioManager\AudioManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Monster.h">
+    <ClInclude Include="models\monster\Monster.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h">
+    <ClInclude Include="models\game\Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="audio\AudioManager.h">
+    <ClInclude Include="models\audioManager\AudioManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Media Include="audio\battle_theme.wav">
+    <Media Include="assets\music\battle_theme.wav">
       <Filter>Resource Files</Filter>
     </Media>
-    <Media Include="audio\menu_theme.wav">
+    <Media Include="assets\music\menu_theme.wav">
       <Filter>Resource Files</Filter>
     </Media>
   </ItemGroup>

@@ -1,24 +1,13 @@
+#include "../audioManager/AudioManager.h"
+#include <conio.h> // For the _getch function
 #include "Game.h"
+#include "../monster/Monster.h"
 
 #include <chrono>
-
-#include "Monster.h"
-#include "audio/AudioManager.h"
-
-
 #include <iostream>
 #include <map>
 
 // ------------------------------------------------------------------------------------------------------------------
-
-// Ignore the input in a line. 
-void Game::IgnoreLine()
-{
-	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-}
-
-// ------------------------------------------------------------------------------------------------------------------
-
 
 // Get a whole line typed by the user
 std::string Game::GetCin()
@@ -29,6 +18,57 @@ std::string Game::GetCin()
 	std::cout << std::endl;
 
 	return userCin;
+}
+
+// ------------------------------------------------------------------------------------------------------------------
+
+std::string Game::GetNumberTyped()
+{
+	std::cout << "-> ";
+
+	std::string numberTyped;
+
+	do
+	{
+		char key = _getch();
+
+		if (key >= '0' && key <= '9')
+		{
+			numberTyped += key;
+			std::cout << key;
+		}
+
+		// If the key pressed is "delete".
+		if (key == 8)
+		{
+			// If the attribute's value is not empty.
+			if (!numberTyped.empty())
+			{
+				// Delete the last character and put the cursor back from 1 character in the console.
+				numberTyped.pop_back();
+				std::cout << "\b \b";
+			}
+		}
+
+		if (key == 13 && numberTyped != "0")
+		{
+			if (numberTyped.empty())
+			{
+				// The attribute's value is empty, so ask again to enter a number of hp
+				std::cout << std::endl << "No value entered. Please enter a valid one" << std::endl;
+				std::cout << "-> ";
+			}
+
+			else
+			{
+				break;
+			}
+
+		}
+
+	} while (true);
+
+	return numberTyped;
 }
 
 // ------------------------------------------------------------------------------------------------------------------
@@ -61,14 +101,65 @@ std::string Game::DisplayMainMenu()
 
 // ------------------------------------------------------------------------------------------------------------------
 
+void Game::EnterArenaAnimation()
+{
+	AudioManager::Stop();
+	AudioManager::Play("assets/music/battle_theme", true);
+
+	std::cout << "Monsters enter the arena";
+	for (int waitingLoopIdx = 0; waitingLoopIdx < 16; waitingLoopIdx++)
+	{
+		std::cout << " . ";
+		std::this_thread::sleep_for(std::chrono::milliseconds(400));
+		if (waitingLoopIdx % 3 == 0)
+		{
+			system("cls");
+			std::cout << "Monsters enter the arena";
+		}
+	}
+
+	system("cls");
+}
+
+// ------------------------------------------------------------------------------------------------------------------
+
+int Game::MonsterMenu()
+{
+	std::cout << "What would you like to do ?" << std::endl;
+	std::cout << "=================================" << std::endl;
+	std::cout << "[1] Continue to create Monsters" << std::endl;
+	std::cout << "[2] Back to the menu" << std::endl;
+	std::cout << "=================================" << std::endl;
+
+	int userAnswer = std::stoi(Game::GetNumberTyped());
+	system("cls");
+
+	return userAnswer;
+}
+
+// ------------------------------------------------------------------------------------------------------------------
+
+int Game::BattleMenu()
+{
+	std::cout << std::endl;
+	std::cout << "What would you like to do ?	" << std::endl;
+	std::cout << "==============================" << std::endl;
+	std::cout << "[1] Continue to make Battles  " << std::endl;
+	std::cout << "[2] Back to the menu		    " << std::endl;
+	std::cout << "==============================" << std::endl;
+
+	int userAnswer = std::stoi(GetNumberTyped());
+	system("cls");
+	return userAnswer;
+}
+
+// ------------------------------------------------------------------------------------------------------------------
+
 void Game::Battle(Monster& monster1, Monster& monster2)
 {
 	bool isInfiniteFight = false;
 
-
 	int nbrOfTurn = 0;
-
-	// --------------------------------------------------------------------------------------------------------------
 
 	// Check if the monsters attributes are valid to make a battle.
 	// If the attack of the 2 monsters is lower or equal to the defense of the other,
@@ -78,28 +169,9 @@ void Game::Battle(Monster& monster1, Monster& monster2)
 		isInfiniteFight = true;
 	}
 
-	// --------------------------------------------------------------------------------------------------------------
-
 	if (monster1.GetRaceToString() != monster2.GetRaceToString() && !isInfiniteFight)
 	{
-		AudioManager::Stop();
-		AudioManager::Play("audio/battle_theme");
-
-		std::cout << "Monsters enter the arena";
-		for (int waitingLoopIdx = 0; waitingLoopIdx < 16; waitingLoopIdx++)
-		{
-			std::cout << " . ";
-			std::this_thread::sleep_for(std::chrono::milliseconds(400));
-			if (waitingLoopIdx % 3 == 0)
-			{
-				system("cls");
-				std::cout << "Monsters enter the arena";
-			}
-		}
-
-		system("cls");
-
-		// ----------------------------------------------------------------------------------------------------------
+		EnterArenaAnimation();
 
 		if (monster1.GetSpeed() > monster2.GetSpeed())
 		{
@@ -170,25 +242,9 @@ void Game::Battle(Monster& monster1, Monster& monster2)
 
 	else
 	{
-		std::cout << "Neither monster is strong enough to beat the other. So it's a tie !!! " << std::endl;
+		std::cout << "Neither monster is strong enough to beat the other. So there is no fight. " << std::endl;
 	}
 
-}
-
-// ------------------------------------------------------------------------------------------------------------------
-
-int Game::BattleMenu()
-{
-	std::cout << std::endl;
-	std::cout << "What would you like to do ?	" << std::endl;
-	std::cout << "==============================" << std::endl;
-	std::cout << "[1] Continue to make Battles  " << std::endl;
-	std::cout << "[2] Back to the menu		    " << std::endl;
-	std::cout << "==============================" << std::endl;
-
-	int userAnswer = std::stoi(Monster::GetNumberTyped());
-	system("cls");
-	return userAnswer;
 }
 
 // ------------------------------------------------------------------------------------------------------------------
@@ -208,9 +264,9 @@ bool Game::ActivateChosenOption(bool& game, std::string chosenOption, std::map<s
 
 			Monster::DisplayMonsters(monsters);
 
-			int menuChoice = Monster::CreateMonsterMenu();
+			int menuChoice = MonsterMenu();
 
-			if (menuChoice == 2)
+			if (menuChoice != 1)
 			{
 				break;
 			}
@@ -226,7 +282,7 @@ bool Game::ActivateChosenOption(bool& game, std::string chosenOption, std::map<s
 
 		while (true)
 		{
-			
+
 			// The Monster collection need at least 2 Monsters to make a battle, so check if it's the case
 			if (monsters.size() >= 2)
 			{
@@ -251,26 +307,24 @@ bool Game::ActivateChosenOption(bool& game, std::string chosenOption, std::map<s
 					if (menuChoice == 1)
 					{
 						AudioManager::Stop();
-						AudioManager::Play("audio/menu_theme.wav");
+						AudioManager::Play("assets/music/menu_theme.wav", true);
 					}
 
-					if (menuChoice == 2)
+					else
 					{
 						AudioManager::Stop();
-						AudioManager::Play("audio/menu_theme.wav");
+						AudioManager::Play("assets/music/menu_theme.wav", true);
 						break;
 					}
+
 				}
 
 				else
 				{
-					std::cout << "There is at least one wrong name in your input, please try again." << std::endl;
+					std::cout << "There is at least one wrong name in your input, please try again." << std::endl << std::endl;
 				}
 
-
 			}
-
-			// ----------------------------------------------------------------------------------------------------------
 
 			// The Monster collection doesn't contain enough Monsters to make a battle
 			else
@@ -280,8 +334,9 @@ bool Game::ActivateChosenOption(bool& game, std::string chosenOption, std::map<s
 				break;
 			}
 
-			// ----------------------------------------------------------------------------------------------------------
 		}
+
+		// ----------------------------------------------------------------------------------------------------------
 
 	}
 	// If option 3, quite the program.
@@ -293,5 +348,3 @@ bool Game::ActivateChosenOption(bool& game, std::string chosenOption, std::map<s
 
 	return game;
 }
-
-

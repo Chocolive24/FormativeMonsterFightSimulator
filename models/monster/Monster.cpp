@@ -1,8 +1,9 @@
 #include "../game/Game.h"
 #include "Monster.h"
+#include "../utility/Utility.h"
 
-#include <thread>
 #include <iostream>
+#include <thread>
 
 // ------------------------------------------------------------------------------------------------------------------
 
@@ -28,21 +29,34 @@ Race Monster::SetUpRace()
 	std::cout << "[2] Troll.        "		   << std::endl;
 	std::cout << "[3] Goblin.       "		   << std::endl;
 	std::cout << "=================="		   << std::endl;
-	int userAnswer = std::stoi(Game::GetNumberTyped());
+	
 
-	if (userAnswer == 1)
+	do
 	{
-		race = Race::ORC;
-	}
-	else if (userAnswer == 2)
-	{
-		race = Race::TROLL;
-	}
-	else if (userAnswer == 3)
-	{
-		race = Race::GOBLIN;
-	}
+		int userAnswer = std::stoi(Utility::GetNumberTyped());
 
+		if (userAnswer == 1)
+		{
+			race = Race::ORC;
+			break;
+		}
+
+		if (userAnswer == 2)
+		{
+			race = Race::TROLL;
+			break;
+		}
+
+		if (userAnswer == 3)
+		{
+			race = Race::GOBLIN;
+			break;
+		}
+
+		std::cout << std::endl << "Tap a valid race number please." << std::endl;
+
+	} while (true);
+	
 	return race;
 }
 
@@ -52,7 +66,7 @@ int Monster::SetUpHp()
 {
 	std::cout << std::endl << std::endl << "Set the number of Hp of your Monster." << std::endl;
 
-	int hp = std::stoi(Game::GetNumberTyped());
+	int hp = std::stoi(Utility::GetNumberTyped());
 
 	return hp;
 }
@@ -63,7 +77,7 @@ int Monster::SetUpAttack()
 {
 	std::cout << std::endl << std::endl << "Set the number of Attack Damage of your Monster." << std::endl;
 
-	int attack = std::stoi(Game::GetNumberTyped());
+	int attack = std::stoi(Utility::GetNumberTyped());
 
 	return attack;
 }
@@ -74,7 +88,7 @@ int Monster::SetUpDefense()
 {
 	std::cout << std::endl << std::endl << "Set the number of Defense Points of your Monster." << std::endl;
 
-	int defense = std::stoi(Game::GetNumberTyped());
+	int defense = std::stoi(Utility::GetNumberTyped());
 
 	return defense;
 }
@@ -85,7 +99,7 @@ int Monster::SetUpSpeed()
 {
 	std::cout << std::endl << std::endl << "Set the Speed of your Monster." << std::endl;
 
-	int speed = std::stoi(Game::GetNumberTyped());
+	int speed = std::stoi(Utility::GetNumberTyped());
 
 	return speed;
 }
@@ -95,7 +109,7 @@ int Monster::SetUpSpeed()
 std::string Monster::SetUpName()
 {
 	std::cout << std::endl << std::endl << "Finally, set the name of your Monster." << std::endl;
-	std::string name = Game::GetCin();
+	std::string name = Utility::GetCin();
 	std::cout << std::endl;
 	system("cls");
 

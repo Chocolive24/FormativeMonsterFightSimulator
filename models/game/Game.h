@@ -4,26 +4,20 @@
 
 #include <string>
 
-
-
-class Game
+namespace Game
 {
-public:
+	// First page menus.
+	void WelcomeScreen();
+	std::string DisplayMainMenu();
 
-	static void IgnoreLine();
-	static std::string GetCin();
-	static std::string GetNumberTyped();
+	// Second page menus.
+	int MonsterMenu();
+	int BattleMenu();
 
-	static void WelcomeScreen();
-	static std::string DisplayMainMenu();
+	// Battle system
+	void EnterArenaAnimation();
+	void Battle(Monster& monster1, Monster& monster2);
 
-	static void EnterArenaAnimation();
-	static void Battle(Monster& monster1, Monster& monster2);
-
-	static int MonsterMenu();
-	static int BattleMenu();
-
-	static bool ActivateChosenOption(bool& game, std:: string chosenOption, std::map<std::string, Monster>& monsters);
-
-};
-
+	// Activate the option chosen in the main menu.
+	bool ActivateChosenOption(bool& game, std::string chosenOption, std::map<std::string, Monster>& monsters);
+}

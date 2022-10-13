@@ -133,11 +133,13 @@
     <ClCompile Include="FormativeMonsterFightSimulator.cpp" />
     <ClCompile Include="models\game\Game.cpp" />
     <ClCompile Include="models\monster\Monster.cpp" />
+    <ClCompile Include="models\utility\Utility.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="models\audioManager\AudioManager.h" />
     <ClInclude Include="models\game\Game.h" />
     <ClInclude Include="models\monster\Monster.h" />
+    <ClInclude Include="models\utility\Utility.h" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="assets\music\battle_theme.wav" />

@@ -11,4 +11,4 @@
 | Improve the game | 5h | 3h |
 | Create the Monster collection | 1h | 2h30 |
 | Add Music | 1h | 1h30 |
-| Comment and clean the code | 2h | 40min |
+| Comment and clean the code | 2h | 1h30min |

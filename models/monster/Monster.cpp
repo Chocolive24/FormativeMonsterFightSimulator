@@ -29,7 +29,6 @@ Race Monster::SetUpRace()
 	std::cout << "[2] Troll.        "		   << std::endl;
 	std::cout << "[3] Goblin.       "		   << std::endl;
 	std::cout << "=================="		   << std::endl;
-	
 
 	do
 	{
@@ -162,7 +161,8 @@ void Monster::DisplayMonsters(std::map<std::string, Monster>& monsters)
 				  << " Hp : "      << it->second._hp			   << " /"
 				  << " Attack : "  << it->second._attack		   << " /"
 				  << " Defense : " << it->second._defense		   << " /"
-			      << " Speed : "   << it->second._speed			   << " /" << std::endl << std::endl; 
+			      << " Speed : "   << it->second._speed			   << " /"
+				  << std::endl << std::endl; 
 	}
 }
 
@@ -176,6 +176,7 @@ void Monster::Attack(Monster& attacker, Monster& defender)
 	{
 		damage = 0;
 	}
+
 	defender._hp -= damage;
 
 	if (defender._hp < 0)
@@ -191,7 +192,6 @@ void Monster::Attack(Monster& attacker, Monster& defender)
 	std::cout << "===============================================" << std::endl;
 
 	std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-
 }
 
 // ------------------------------------------------------------------------------------------------------------------

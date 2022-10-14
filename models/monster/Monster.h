@@ -40,9 +40,6 @@ public:
 	static int SetUpSpeed();
 	static std::string SetUpName();
 
-	// Check which monster is attacking.
-	bool SetIsAttacking(bool state);
-
 	// ------------------------------------------------------------------------------------------------------------------
 
 	// Methods to get attributes.
@@ -53,6 +50,9 @@ public:
 	std::string GetName() { return _name;  }
 	bool GetIsAttacking() { return _isAttacking; }
 
+	// Check which monster is attacking.
+	bool SetIsAttacking(bool state);
+
 	// Check if a monster is dead.
 	bool IsDead() { return _hp <= 0; }
 
@@ -62,6 +62,8 @@ public:
 	static Monster CreateMonster();
 	static void AddMonster(std::map<std::string, Monster>& monsters, std::string name, Monster& monster);
 	static void DisplayMonsters(std::map<std::string, Monster>& monsters);
+
+	// ------------------------------------------------------------------------------------------------------------------
 
 	// Method to attack during the battle.
 	static void Attack(Monster& attacker, Monster& defender);

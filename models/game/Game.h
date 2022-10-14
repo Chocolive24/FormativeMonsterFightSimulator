@@ -4,6 +4,7 @@
 
 #include <string>
 
+// Namespace to store function used by the game.
 namespace Game
 {
 	// First page menus.

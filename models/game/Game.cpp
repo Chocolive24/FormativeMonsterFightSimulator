@@ -74,6 +74,7 @@ namespace Game
 
 	void EnterArenaAnimation()
 	{
+		// Play the battle theme.
 		AudioManager::Stop();
 		AudioManager::Play("assets/music/battle_theme", true);
 
@@ -102,16 +103,19 @@ namespace Game
 
 		// Check if the monsters attributes are valid to make a battle.
 		// If the attack of the 2 monsters is lower or equal to the defense of the other,
-		// neither monster will do damage. So the fight would be infinite
+		// neither monster will do damage. So the fight would be infinite.
 		if (monster1.GetAttack() <= monster2.GetDefense() && monster2.GetAttack() <= monster1.GetDefense())
 		{
 			isInfiniteFight = true;
 		}
 
+		// The fight begin only if the monsters are not of the same race
+		// and if the attributes would nnot lead in an infinite fight.
 		if (monster1.GetRaceToString() != monster2.GetRaceToString() && !isInfiniteFight)
 		{
 			EnterArenaAnimation();
 
+			// The fastest monster attacks first. 
 			if (monster1.GetSpeed() > monster2.GetSpeed())
 			{
 				monster1.SetIsAttacking(true);
@@ -128,10 +132,12 @@ namespace Game
 
 			while (true)
 			{
+				// If no monster is dead, a new turn begin.
 				if (!monster1.IsDead() && !monster2.IsDead())
 				{
 					nbrOfTurn++;
 
+					// Set the attacker and the defender of the current turn.
 					Monster& attacker = monster1.GetIsAttacking() ? monster1 : monster2;
 					Monster& defender = monster1.GetIsAttacking() ? monster2 : monster1;
 
@@ -140,9 +146,11 @@ namespace Game
 
 					Monster::Attack(attacker, defender);
 
+					// Switch the attacker and the defender for the next turn.
 					monster1.SetIsAttacking(!monster1.GetIsAttacking());
 					monster2.SetIsAttacking(!monster2.GetIsAttacking());
 
+					// Clean the console after 5 turns for greater readability
 					if (nbrOfTurn % 5 == 0)
 					{
 						system("cls");
@@ -150,26 +158,29 @@ namespace Game
 
 				}
 
+				// One monster is dead, so the battle ends.
 				else
 				{
 					break;
 				}
 			}
 
+			// ----------------------------------------------------------------------------------------------------------
+
+			// Check who is the winner and print his name.
 			std::cout << std::endl << (monster1.IsDead() ? monster2.GetName() : monster1.GetName())
-				<< " is the Winner !!!" << std::endl << std::endl;
+					  << " is the Winner !!!" << std::endl << std::endl;
 
 			std::cout << "Number of turns = " << nbrOfTurn << std::endl;
-
-			// ----------------------------------------------------------------------------------------------------------
 		}
 
+		// The monsters have the same race, so there is no battle
 		else if (monster1.GetRaceToString() == monster2.GetRaceToString())
 		{
-			// The monsters have the same race, so there is no battle
 			std::cout << "NOOOOOOOO !!! You cannot make a battle between two Monsters of the same race." << std::endl;
 		}
 
+		// The attributes of the monsters lead to an infinite fight, so there is no battle.
 		else
 		{
 			std::cout << "Neither monster is strong enough to beat the other. So there is no fight. " << std::endl;
@@ -183,7 +194,6 @@ namespace Game
 		// If option 1, the user can create a Monster.
 		if (chosenOption == "1")
 		{
-
 			while (true)
 			{
 				Monster monster = Monster::CreateMonster();
@@ -193,6 +203,7 @@ namespace Game
 
 				Monster::DisplayMonsters(monsters);
 
+				// Allow the user to create an other monster or to go back in the main menu.
 				int menuChoice = MonsterMenu();
 
 				if (menuChoice != 1)
@@ -202,7 +213,7 @@ namespace Game
 			}
 		}
 
-		// If option 2, ask the user 2 Monsters and make a battle bewteen them.
+		// If option 2, ask the user 2 Monsters and make a battle between them.
 		else if (chosenOption == "2")
 		{
 			// ----------------------------------------------------------------------------------------------------------
@@ -214,6 +225,7 @@ namespace Game
 				{
 					Monster::DisplayMonsters(monsters);
 
+					// Ask the names of the Monsters that will fight.
 					std::cout << "Type the name of the first monster that will fight " << std::endl;
 					std::string monster1Name = Utility::GetCin();
 					std::cout << "Type the name of the second monster that will fight" << std::endl;
@@ -223,27 +235,32 @@ namespace Game
 					// Check if the names typed are in the Monster Collection. (contains() need C++20 to work)
 					if (monsters.contains(monster1Name) && monsters.contains(monster2Name))
 					{
+						// Create temporary copies of monsters to do the battle.
 						Monster monster1 = monsters[monster1Name];
 						Monster monster2 = monsters[monster2Name];
 
 						Battle(monster1, monster2);
 
+						// Allow the user to make a battle again or to go back in the main menu.
 						int menuChoice = BattleMenu();
 
 						if (menuChoice == 1)
 						{
+							// Stop the battle theme and replay the menu theme.
 							AudioManager::Stop();
 							AudioManager::Play("assets/music/menu_theme.wav", true);
 						}
 
 						else
 						{
+							// Stop the battle theme and replay the menu theme.
 							AudioManager::Stop();
 							AudioManager::Play("assets/music/menu_theme.wav", true);
 							break;
 						}
 					}
 
+					// There is at least a monster name that is not in the monster collection.
 					else
 					{
 						std::cout << "There is at least one wrong name in your input, please try again." << std::endl << std::endl;
@@ -271,4 +288,6 @@ namespace Game
 
 		return game;
 	}
+
+	// ------------------------------------------------------------------------------------------------------------------
 }

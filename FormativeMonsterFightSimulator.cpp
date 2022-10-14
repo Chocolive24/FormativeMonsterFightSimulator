@@ -8,8 +8,9 @@ int main()
 {
 	bool game = true;
 
-	std::map<std::string, Monster> monsters;
+	std::map<std::string, Monster> monsterCollection;
 
+	// Play the menu theme.
 	AudioManager::Play("assets/music/menu_theme.wav", true);
 
 	// ------------------------------------------------------------------------------------------------------------------
@@ -17,7 +18,7 @@ int main()
 	while (game)
 	{
 		Game::WelcomeScreen();
-		Game::ActivateChosenOption(game, Game::DisplayMainMenu(), monsters);
+		Game::ActivateChosenOption(game, Game::DisplayMainMenu(), monsterCollection);
 	}
 
 	// ------------------------------------------------------------------------------------------------------------------

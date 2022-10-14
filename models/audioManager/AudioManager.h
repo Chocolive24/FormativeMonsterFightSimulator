@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 
+// Namespace to store functions that manage the musics.
 namespace AudioManager
 {
     /**
@@ -11,4 +12,3 @@ namespace AudioManager
     void Play(const std::string& path, const bool repeat);
     void Stop();
 }
-

@@ -15,9 +15,9 @@ Then you can make battle between monsters you created.
 * Before you start, create a schedule in the form of a table with 3 columns. On this table write down the milestones of your planned implementation in the first column. In the second column, write down how long you think it will take you to complete each milestone. As you work, measure your time. When the milestone is completed, write in the third column how long it actually took you.  
 
 # Learning objectives :  
-* Explain characteristics of algorithms.
-* Produce stable code using object-oriented programming.
-* Create algorithms for specific tasks.  
+* Describe the principles of object-oriented programming
+* Produce stable code using object-oriented programming
+* Plan and manage the allocated time to successfully meet given milestones and deadlines
 
 # Schedule
 
